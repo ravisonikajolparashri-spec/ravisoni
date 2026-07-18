@@ -247,40 +247,80 @@
   h2 { font-family: var(--font-mono); font-weight: 600; font-size: clamp(26px, 3vw, 36px); margin: 0 0 40px; max-width: 620px; letter-spacing: -0.01em; }
 
   /* ABOUT */
-  .about-lead { font-size: 22px; line-height: 1.55; max-width: 780px; margin-bottom: 32px; color: var(--text); }
+  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; }
+  .about-lead { font-size: 22px; line-height: 1.55; margin-bottom: 24px; color: var(--text); }
   .about-lead .hl { color: var(--android); }
-  .about-body { font-size: 15.5px; max-width: 620px; color: var(--text-dim); margin-bottom: 40px; line-height: 1.7; }
-  .stat-row { display: flex; gap: 48px; flex-wrap: wrap; }
-  .stat-num { font-family: var(--font-mono); font-size: 30px; color: var(--flutter); }
-  .stat-lbl { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+  .about-body { font-size: 15.5px; color: var(--text-dim); margin-bottom: 0; line-height: 1.7; }
+  .about-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bento-card {
+    position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--divider);
+    border-radius: var(--radius); padding: 26px 22px; transition: transform 0.3s cubic-bezier(.16,1,.3,1), border-color 0.3s ease;
+  }
+  .bento-card::before {
+    content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s ease;
+    background: radial-gradient(circle at 25% 20%, rgba(61,220,132,0.12), transparent 65%);
+  }
+  .bento-card:hover { transform: translateY(-5px); border-color: rgba(61,220,132,0.35); }
+  .bento-card:hover::before { opacity: 1; }
+  .bento-card--big { grid-column: 1 / -1; }
+  .bento-num { position: relative; font-family: var(--font-mono); font-weight: 700; font-size: 40px; color: var(--text); line-height: 1; }
+  .bento-card--big .bento-num { font-size: 54px; }
+  .bento-num.accent-f { color: var(--flutter); }
+  .bento-num.accent-a { color: var(--android); }
+  .bento-lbl { position: relative; font-size: 13px; color: var(--text-dim); margin-top: 8px; }
 
   /* HOW I WORK — checklist */
-  .checklist { display: flex; flex-direction: column; }
+  .checklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .check-row {
-    display: grid; grid-template-columns: 28px 1fr 1.6fr; gap: 22px; align-items: baseline;
-    border-top: 1px solid var(--divider); padding: 24px 0;
+    position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--divider);
+    border-radius: var(--radius); padding: 28px 24px; display: flex; flex-direction: column; gap: 10px;
+    transition: transform 0.3s cubic-bezier(.16,1,.3,1), border-color 0.3s ease;
   }
-  .check-row:first-child { border-top: none; }
-  .check-box { font-family: var(--font-mono); color: var(--android); font-size: 15px; }
-  .check-title { font-size: 17.5px; font-weight: 600; }
-  .check-body { font-size: 14.5px; color: var(--text-dim); line-height: 1.6; margin: 0; }
+  .check-row::after {
+    content: attr(data-index); position: absolute; top: 6px; right: 14px; font-family: var(--font-mono);
+    font-weight: 700; font-size: 46px; color: rgba(238,242,239,0.045); pointer-events: none; line-height: 1;
+  }
+  .check-row:hover { transform: translateY(-5px); border-color: rgba(84,197,248,0.35); }
+  .check-box { position: relative; font-family: var(--font-mono); color: var(--android); font-size: 15px; }
+  .check-title { position: relative; font-size: 17.5px; font-weight: 600; }
+  .check-body { position: relative; font-size: 14.5px; color: var(--text-dim); line-height: 1.6; margin: 0; max-width: 88%; }
 
   /* SKILLS */
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 48px; }
-  .service-card { border-top: 2px solid var(--flutter); padding-top: 18px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+  .service-card {
+    position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--divider);
+    border-radius: var(--radius); padding: 26px 22px 22px; transition: transform 0.3s cubic-bezier(.16,1,.3,1), border-color 0.3s ease;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; transform: scaleX(0); transform-origin: left;
+    background: linear-gradient(90deg, var(--android), var(--flutter)); transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+  }
+  .service-card:hover { transform: translateY(-5px); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card .service-index { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); margin-bottom: 14px; display: block; }
   .service-card h4 { font-size: 17px; margin: 0 0 8px; font-family: var(--font-mono); }
   .service-card p { font-size: 14.5px; color: var(--text-dim); line-height: 1.6; margin: 0; }
+  .skills-cloud-card { margin-top: 8px; background: var(--surface); border: 1px solid var(--divider); border-radius: var(--radius); padding: 28px; }
+  .skills-cloud-label { font-family: var(--font-mono); font-size: 12px; color: var(--flutter); margin-bottom: 16px; }
   .skill-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-cloud .tag { transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
+  .skill-cloud .tag:hover { border-color: var(--android); color: var(--text); background: rgba(61,220,132,0.08); }
 
   /* WORK */
   .work-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; align-items: start; }
   .proj-row {
-    border-top: 1px solid var(--divider); padding: 26px 0; cursor: pointer;
-    transition: padding-left 0.3s cubic-bezier(.16,1,.3,1); display: block; width: 100%; background: none; border-left: none; border-right: none; border-bottom: none; text-align: left;
+    position: relative; border-top: 1px solid var(--divider); padding: 26px 0 26px 0; cursor: pointer;
+    transition: padding-left 0.3s cubic-bezier(.16,1,.3,1), background 0.3s ease; display: block; width: 100%;
+    background: none; border-left: none; border-right: none; border-bottom: none; text-align: left;
+  }
+  .proj-row::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--android);
+    transform: scaleY(0); transition: transform 0.3s cubic-bezier(.16,1,.3,1);
   }
   .proj-row:first-child { border-top: none; }
   .proj-row:last-of-type { border-bottom: 1px solid var(--divider); }
-  .proj-row:hover, .proj-row.active { padding-left: 12px; }
+  .proj-row:hover, .proj-row.active { padding-left: 20px; background: linear-gradient(90deg, rgba(61,220,132,0.05), transparent 60%); }
+  .proj-row:hover::before, .proj-row.active::before { transform: scaleY(1); }
   .proj-row:hover .proj-title, .proj-row.active .proj-title { color: var(--android); }
   .proj-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
   .proj-hash { flex: 0 0 64px; font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); }
@@ -288,7 +328,11 @@
   .proj-tags { display:flex; gap:8px; flex-wrap: wrap; padding-left: 80px; }
 
   .work-preview { position: sticky; top: 92px; }
-  .editor-window { border: 1px solid var(--divider); border-radius: var(--radius); overflow: hidden; background: var(--surface); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+  .editor-window {
+    border: 1px solid var(--divider); border-radius: var(--radius); overflow: hidden; background: var(--surface);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4); transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  .editor-window:hover { transform: translateY(-6px); box-shadow: 0 34px 80px rgba(0,0,0,0.5); border-color: rgba(61,220,132,0.3); }
   .editor-titlebar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface-2); border-bottom: 1px solid var(--divider); font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); }
   .work-thumb {
     position: relative; aspect-ratio: 16/11; display: flex; align-items: center; justify-content: center; overflow: hidden;
@@ -301,21 +345,42 @@
   .work-link:hover { color: var(--android); }
 
   /* PROOF */
-  .proof-term { background: var(--surface); border: 1px solid var(--divider); border-radius: var(--radius); overflow: hidden; }
-  .proof-rows { font-family: var(--font-mono); font-size: 14.5px; padding: 22px 26px; }
-  .proof-cmd { color: var(--flutter); margin-bottom: 18px; }
-  .proof-row { display: flex; justify-content: space-between; gap: 20px; padding: 10px 0; border-top: 1px solid var(--divider); }
-  .proof-row:first-of-type { border-top: none; }
-  .proof-key { color: var(--text-dim); }
-  .proof-val { color: var(--android); }
-  .proof-note { font-size: 13px; color: var(--text-dim); margin: 20px 2px 0; opacity: 0.8; }
+  .proof-cmd { font-family: var(--font-mono); font-size: 14.5px; color: var(--flutter); margin-bottom: 22px; }
+  .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .proof-card {
+    position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--divider);
+    border-radius: var(--radius); padding: 24px 20px; transition: transform 0.3s cubic-bezier(.16,1,.3,1), border-color 0.3s ease;
+  }
+  .proof-card:hover { transform: translateY(-5px); border-color: rgba(61,220,132,0.35); }
+  .proof-val { font-family: var(--font-mono); font-size: 30px; font-weight: 700; color: var(--android); display: block; }
+  .proof-key { font-size: 11.5px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 8px; display: block; }
+  .proof-note { font-size: 13px; color: var(--text-dim); margin: 24px 2px 0; opacity: 0.8; }
 
   /* CONTACT */
   .contact-section { position: relative; max-width: 1200px; margin: 0 auto; padding: 110px 48px; overflow: hidden; }
   .contact-glow { position:absolute; width:560px; height:560px; border-radius:50%; background: radial-gradient(circle, rgba(84,197,248,0.09), transparent 70%); top:-180px; right:-160px; pointer-events:none; }
+  .contact-glow-b { width: 420px; height: 420px; top: auto; right: auto; bottom: -180px; left: -140px; background: radial-gradient(circle, rgba(61,220,132,0.08), transparent 70%); animation: drift 18s ease-in-out infinite reverse; }
+  .contact-ghost {
+    display: none;
+  }
   .contact-inner { position: relative; z-index: 2; max-width: 680px; }
   .contact-sub { font-size: 17px; color: var(--text-dim); margin-bottom: 32px; max-width: 540px; line-height: 1.6; }
   .contact-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .float-card--response {
+    display: none;
+  }
+  @media (min-width: 980px) {
+    .contact-ghost {
+      display: block; position: absolute; z-index: 1; top: 50%; right: 4%; transform: translateY(-50%);
+      font-family: var(--font-mono); font-weight: 800; font-size: clamp(120px, 13vw, 200px);
+      color: transparent; -webkit-text-stroke: 1px rgba(238,242,239,0.06); letter-spacing: -0.02em;
+      white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .float-card--response {
+      display: flex; align-items: center; gap: 10px; position: absolute; z-index: 3; right: 6%; bottom: 14%;
+      padding: 12px 18px; font-size: 13px; color: var(--text-dim); animation: floatyC 5.5s ease-in-out infinite;
+    }
+  }
 
   footer.site-footer { padding: 30px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--divider); font-size: 13px; color: var(--text-dim); font-family: var(--font-mono); max-width: 1280px; margin: 0 auto; }
   footer.site-footer a:hover { color: var(--android); }
@@ -333,12 +398,13 @@
     main { padding: 0 20px; }
     .section { padding: 60px 0; }
     .contact-section { padding: 70px 20px; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .about-bento { grid-template-columns: 1fr 1fr; }
+    .checklist { grid-template-columns: 1fr; }
     .services-grid { grid-template-columns: 1fr; }
     .work-grid { grid-template-columns: 1fr; }
     .work-preview { position: static; margin-top: 24px; }
-    .check-row { grid-template-columns: 24px 1fr; }
-    .check-row .check-body { grid-column: 1 / -1; }
-    .proof-row { flex-wrap: wrap; }
+    .proof-grid { grid-template-columns: 1fr 1fr; }
     footer.site-footer { flex-direction: column; align-items: flex-start; }
   }
 </style>
@@ -419,16 +485,29 @@
 
 <section id="about" class="section" aria-labelledby="about-heading">
   <div class="eyebrow reveal" data-reveal><span class="num">01</span><span class="lbl">About</span></div>
-  <p class="about-lead reveal" data-reveal data-reveal-delay="60" id="about-heading">
-    10 years building mobile and web products, end to end. <span class="hl">Flutter, native Android, and full-stack web</span> — architecture, performance, and delivery, owned by one person from first line of code to production.
-  </p>
-  <p class="about-body reveal" data-reveal data-reveal-delay="120">
-    Reusable UI systems, server-driven UI, offline-first workflows, clean architecture — the same discipline whether it ships as a mobile app or a web platform.
-  </p>
-  <div class="stat-row reveal" data-reveal data-reveal-delay="180">
-    <div><div class="stat-num">10</div><div class="stat-lbl">years, mobile &amp; web</div></div>
-    <div><div class="stat-num">10+</div><div class="stat-lbl">products shipped to production</div></div>
-    <div><div class="stat-num">1</div><div class="stat-lbl">person, every layer</div></div>
+  <div class="about-grid">
+    <div class="about-copy">
+      <p class="about-lead reveal" data-reveal data-reveal-delay="60" id="about-heading">
+        10 years building mobile and web products, end to end. <span class="hl">Flutter, native Android, and full-stack web</span> — architecture, performance, and delivery, owned by one person from first line of code to production.
+      </p>
+      <p class="about-body reveal" data-reveal data-reveal-delay="120">
+        Reusable UI systems, server-driven UI, offline-first workflows, clean architecture — the same discipline whether it ships as a mobile app or a web platform.
+      </p>
+    </div>
+    <div class="about-bento reveal" data-reveal data-reveal-delay="180">
+      <div class="bento-card bento-card--big">
+        <div class="bento-num">10</div>
+        <div class="bento-lbl">years, mobile &amp; web</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-num accent-f">10+</div>
+        <div class="bento-lbl">products shipped to production</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-num accent-a">1</div>
+        <div class="bento-lbl">person, every layer</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -442,7 +521,10 @@
   <div class="eyebrow reveal" data-reveal><span class="num">03</span><span class="lbl">Skills</span></div>
   <h2 id="skills-heading" class="reveal" data-reveal data-reveal-delay="60">Everything under one roof.</h2>
   <div class="services-grid" id="services-grid"></div>
-  <div class="skill-cloud reveal" data-reveal id="skill-cloud"></div>
+  <div class="skills-cloud-card reveal" data-reveal>
+    <div class="skills-cloud-label mono">// tech_stack</div>
+    <div class="skill-cloud" id="skill-cloud"></div>
+  </div>
 </section>
 
 <section id="work" class="section" aria-labelledby="work-heading">
@@ -457,18 +539,16 @@
 <section id="proof" class="section" aria-labelledby="proof-heading">
   <div class="eyebrow reveal" data-reveal><span class="num">05</span><span class="lbl">Proof</span></div>
   <h2 id="proof-heading" class="reveal" data-reveal data-reveal-delay="60">By the numbers.</h2>
-  <div class="proof-term reveal" data-reveal>
-    <div class="proof-rows">
-      <div class="proof-cmd">&gt; stats --last-10y</div>
-      <div id="proof-list"></div>
-    </div>
-  </div>
+  <div class="proof-cmd mono reveal" data-reveal>&gt; stats --last-10y</div>
+  <div class="proof-grid reveal" data-reveal data-reveal-delay="60" id="proof-list"></div>
   <p class="proof-note">Client logos and testimonials go here once you've got a few you can name — happy to help slot them in later.</p>
 </section>
 </main>
 
 <section id="contact" class="contact-section" aria-labelledby="contact-heading">
   <div class="contact-glow"></div>
+  <div class="contact-glow contact-glow-b"></div>
+  <span class="contact-ghost" aria-hidden="true">HIRE</span>
   <div class="contact-inner reveal" data-reveal>
     <div class="eyebrow"><span class="num">06</span><span class="lbl">Contact</span></div>
     <h2 id="contact-heading">Got something to build?</h2>
@@ -478,6 +558,9 @@
       <a href="mailto:itsjustravisoni@gmail.com" class="btn btn-secondary">itsjustravisoni@gmail.com</a>
       <a href="tel:+918003222231" class="btn btn-secondary">+91 80032 22231</a>
     </div>
+  </div>
+  <div class="float-card float-card--response mono">
+    <span class="status-led"></span>avg. response time: &lt; 24h
   </div>
 </section>
 
@@ -517,10 +600,10 @@
   ];
 
   var proof = [
-    { key: 'users_served', val: '50,000+' },
-    { key: 'products_shipped', val: '10+' },
-    { key: 'years_active', val: '10' },
-    { key: 'handoffs', val: '0' }
+    { key: 'users_served', target: 50000, suffix: '+', format: true },
+    { key: 'products_shipped', target: 10, suffix: '+' },
+    { key: 'years_active', target: 10, suffix: '' },
+    { key: 'handoffs', target: 0, suffix: '' }
   ];
 
   function el(tag, className, html) {
@@ -542,6 +625,7 @@
     var row = el('div', 'check-row reveal', '');
     row.setAttribute('data-reveal', '');
     row.setAttribute('data-reveal-delay', i * 70);
+    row.setAttribute('data-index', '0' + (i + 1));
     row.innerHTML = '<span class="check-box">[x]</span>' +
       '<h3 class="check-title">' + pr.title + '</h3>' +
       '<p class="check-body">' + pr.body + '</p>';
@@ -554,7 +638,7 @@
     var card = el('div', 'service-card reveal', '');
     card.setAttribute('data-reveal', '');
     card.setAttribute('data-reveal-delay', i * 70);
-    card.innerHTML = '<h4>' + s.title + '</h4><p>' + s.body + '</p>';
+    card.innerHTML = '<span class="service-index mono">0' + (i + 1) + '</span><h4>' + s.title + '</h4><p>' + s.body + '</p>';
     sGrid.appendChild(card);
   });
 
@@ -604,13 +688,48 @@
   });
   renderPreview(projects[0]);
 
-  // Proof
+  // Proof — bento stat cards with count-up on reveal
   var proofList = document.getElementById('proof-list');
   proof.forEach(function (item) {
-    var row = el('div', 'proof-row', '');
-    row.innerHTML = '<span class="proof-key">' + item.key + '</span><span class="proof-val">' + item.val + '</span>';
-    proofList.appendChild(row);
+    var card = el('div', 'proof-card', '');
+    card.innerHTML = '<span class="proof-val" data-target="' + item.target + '" data-suffix="' + item.suffix + '" data-format="' + (item.format ? '1' : '0') + '">0' + item.suffix + '</span>' +
+      '<span class="proof-key">' + item.key + '</span>';
+    proofList.appendChild(card);
   });
+
+  function formatNum(n, format) {
+    return format ? n.toLocaleString('en-US') : String(n);
+  }
+
+  function animateCount(el2) {
+    var target = parseInt(el2.getAttribute('data-target'), 10);
+    var suffix = el2.getAttribute('data-suffix') || '';
+    var format = el2.getAttribute('data-format') === '1';
+    var duration = 1300;
+    var startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(target * eased);
+      el2.textContent = formatNum(current, format) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var proofVals = Array.prototype.slice.call(document.querySelectorAll('.proof-val'));
+  if ('IntersectionObserver' in window && proofVals.length) {
+    var countIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    proofVals.forEach(function (v) { countIo.observe(v); });
+  }
 
   // Scroll reveal
   var els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
