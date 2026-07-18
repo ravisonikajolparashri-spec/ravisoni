@@ -107,65 +107,129 @@
   }
   .nav-mobile-panel { display: none; }
 
-  /* HERO */
+  /* HERO — single layered component: bleed photo + overlapping floating cards */
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(61,220,132,0.55); } 70% { box-shadow: 0 0 0 8px rgba(61,220,132,0); } 100% { box-shadow: 0 0 0 0 rgba(61,220,132,0); } }
+  @keyframes floatyA { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-9px) rotate(-2deg); } }
+  @keyframes floatyB { 0%,100% { transform: translateY(0) rotate(2deg); } 50% { transform: translateY(-11px) rotate(2deg); } }
+  @keyframes floatyC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
   .hero {
-    position: relative; padding: 64px 48px 80px; max-width: 1280px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr; gap: 20px; overflow: hidden;
-  }
-  @media (min-width: 980px) {
-    .hero { grid-template-columns: 1.15fr 0.85fr; align-items: center; gap: 48px; }
-    .hero-photo { justify-content: flex-end; }
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; padding: 36px 20px 48px;
   }
   .hero-glow {
     position:absolute; width:560px; height:560px; border-radius:50%;
     background: radial-gradient(circle, rgba(61,220,132,0.10), transparent 70%);
-    top: -220px; left: -160px; filter: blur(20px); animation: drift 16s ease-in-out infinite; pointer-events:none;
+    top: -220px; left: -160px; filter: blur(20px); animation: drift 16s ease-in-out infinite; pointer-events:none; z-index: 0;
   }
-  .hero-eyebrow { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); margin-bottom: 18px; position: relative; z-index: 1; }
+  .hero-glow-b {
+    width: 460px; height: 460px; top: auto; left: auto; bottom: -200px; right: -140px;
+    background: radial-gradient(circle, rgba(84,197,248,0.08), transparent 70%);
+    animation-duration: 20s; animation-direction: reverse;
+  }
+  .hero-ghost { display: none; }
+
+  .hero-photo-bleed {
+    position: relative; order: 2; width: 100%; max-width: 300px; margin: 8px auto 0; aspect-ratio: 4/5;
+    border-radius: 16px; overflow: hidden; border: 1px solid var(--divider); z-index: 1;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4); animation: fadeInUp 0.8s cubic-bezier(.16,1,.3,1) both;
+    transition: transform 0.3s ease-out;
+  }
+  .hero-photo-bleed img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+
+  .hero-socials { display: none; }
+
+  .hero-inner { position: relative; z-index: 3; order: 1; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 12.5px; color: var(--text-dim); margin: 0 0 18px; }
   .hero-eyebrow .sep { color: var(--divider); margin: 0 8px; }
-  .hero-content { position: relative; z-index: 1; min-width: 0; }
+  .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--android); flex-shrink: 0; animation: pulse 2s ease-out infinite; }
 
-  .hero-photo { position: relative; z-index: 1; display: flex; justify-content: center; }
-  .hero-photo-frame {
-    position: relative; width: 100%; max-width: 340px; border-radius: var(--radius);
-    overflow: hidden; border: 1px solid var(--divider); background: var(--surface);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.45); animation: fadeInUp 0.7s cubic-bezier(.16,1,.3,1) both;
+  .hero-title {
+    font-family: var(--font-mono); font-weight: 700; font-size: clamp(32px, 8.6vw, 42px);
+    line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 20px;
   }
-  .hero-photo-frame img { display: block; width: 100%; height: 100%; aspect-ratio: 4/5; object-fit: cover; }
-  .hero-photo-tag { position: absolute; bottom: 12px; left: 12px; background: rgba(10,15,13,0.72); backdrop-filter: blur(6px); }
+  .hero-title .term-line { display: block; font-size: 13.5px; font-weight: 400; color: var(--text-dim); margin-bottom: 10px; }
+  .hero-title .term-prompt { color: var(--flutter); margin-right: 6px; }
+  .hero-title .accent-a { color: var(--android); }
+  .hero-title .accent-f { color: var(--flutter); }
+  .cursor { display: inline-block; width: 9px; height: 0.85em; background: var(--android); vertical-align: text-bottom; margin-left: 2px; animation: blink 1s steps(1) infinite; }
 
-  .term-window {
-    position: relative; z-index: 1; background: var(--surface); border: 1px solid var(--divider);
-    border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-    animation: fadeInUp 0.7s cubic-bezier(.16,1,.3,1) both;
-  }
-  .term-titlebar { display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: var(--surface-2); border-bottom: 1px solid var(--divider); }
-  .term-dots { display: flex; gap: 7px; }
-  .term-dot { width: 11px; height: 11px; border-radius: 50%; }
-  .term-tabs { display: flex; gap: 4px; overflow-x: auto; }
-  .term-tab {
-    font-family: var(--font-mono); font-size: 12.5px; padding: 5px 12px; border-radius: 6px 6px 0 0;
-    color: var(--text-dim); white-space: nowrap;
-  }
-  .term-tab.active.android { color: var(--android); background: rgba(61,220,132,0.10); }
-  .term-tab.active.flutter { color: var(--flutter); background: rgba(84,197,248,0.10); }
-  .term-tab.active.web { color: var(--text); background: rgba(238,242,239,0.06); }
+  .hero-desc { font-family: var(--font-body); font-size: 16px; color: var(--text-dim); max-width: 560px; margin: 0 0 26px; line-height: 1.65; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
 
-  .term-body { padding: 32px 28px 30px; font-family: var(--font-mono); font-size: 14.5px; line-height: 1.85; }
-  .term-line-cmd { color: var(--text-dim); }
-  .term-prompt { color: var(--flutter); margin-right: 8px; }
-  .term-h1 {
-    font-family: var(--font-mono); font-weight: 700; font-size: clamp(28px, 4.2vw, 46px);
-    line-height: 1.18; margin: 6px 0 18px; letter-spacing: -0.01em;
+  .float-card {
+    background: rgba(16,23,19,0.85); backdrop-filter: blur(10px); border: 1px solid var(--divider);
+    border-radius: 10px; box-shadow: 0 16px 40px rgba(0,0,0,0.35); z-index: 4;
   }
-  .term-h1 .accent-a { color: var(--android); }
-  .term-h1 .accent-f { color: var(--flutter); }
-  .term-desc { font-family: var(--font-body); font-size: 16.5px; color: var(--text-dim); max-width: 620px; margin: 0 0 22px; line-height: 1.65; }
-  .term-status { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text-dim); margin-top: 4px; }
-  .status-led { width: 8px; height: 8px; border-radius: 50%; background: var(--android); box-shadow: 0 0 8px var(--android); }
-  .cursor { display: inline-block; width: 9px; height: 1.1em; background: var(--android); vertical-align: text-bottom; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  .float-card--status {
+    order: 3; margin: 22px auto 0; padding: 12px 18px; width: 100%; max-width: 300px;
+    display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-dim);
+  }
+  .status-led { width: 8px; height: 8px; border-radius: 50%; background: var(--android); box-shadow: 0 0 8px var(--android); flex-shrink: 0; }
 
-  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; position: relative; z-index: 1; }
+  .float-card--stats {
+    order: 4; margin: 14px auto 0; padding: 15px 20px; width: 100%; max-width: 300px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+  }
+  .float-stat { display: flex; flex-direction: column; align-items: center; font-family: var(--font-mono); }
+  .float-stat strong { font-size: 17px; color: var(--text); }
+  .float-stat span { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+  .float-stat-sep { width: 1px; height: 22px; background: var(--divider); }
+
+  .float-card--tag { display: none; }
+
+  @media (min-width: 980px) {
+    .hero {
+      display: block; padding: 0; max-width: 1280px; margin: 0 auto; min-height: 720px;
+    }
+    .hero-ghost {
+      display: block; position: absolute; z-index: 0; top: 4%; left: 50%; transform: translateX(-46%);
+      font-family: var(--font-mono); font-weight: 800; font-size: clamp(140px, 15vw, 240px);
+      color: transparent; -webkit-text-stroke: 1px rgba(238,242,239,0.06); letter-spacing: -0.02em;
+      white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .hero-photo-bleed {
+      position: absolute; top: 0; right: 0; height: 100%; width: 45%; max-width: none; margin: 0;
+      border-radius: 0; border: 0; box-shadow: none; aspect-ratio: auto; z-index: 1;
+    }
+    .hero-photo-bleed::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(90deg, var(--bg) 0%, rgba(10,15,13,0.7) 14%, transparent 44%);
+    }
+    .hero-photo-bleed::after {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(180deg, transparent 55%, var(--bg) 100%);
+    }
+    .hero-socials {
+      display: flex; flex-direction: column; gap: 10px; position: absolute; z-index: 5;
+      top: 50%; right: 32px; transform: translateY(-50%);
+    }
+    .hero-social-btn {
+      width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: rgba(10,15,13,0.6); backdrop-filter: blur(8px); border: 1px solid var(--divider);
+      color: var(--text); font-size: 15px; transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+    .hero-social-btn:hover { border-color: var(--android); color: var(--android); transform: translateY(-3px); }
+    .hero-social-btn--accent { background: var(--android); color: #06120b; border-color: var(--android); }
+    .hero-social-btn--accent:hover { background: #4ee592; color: #06120b; }
+
+    .hero-inner { max-width: 600px; padding: 132px 48px 110px; }
+    .hero-title { font-size: clamp(38px, 4.4vw, 56px); }
+    .hero-title .term-line { font-size: 15px; }
+
+    .float-card--status {
+      order: 0; position: absolute; z-index: 4; left: calc(54% - 54px); bottom: 92px; margin: 0;
+      width: auto; max-width: 280px; animation: floatyA 5s ease-in-out infinite;
+    }
+    .float-card--stats {
+      order: 0; position: absolute; z-index: 4; right: 7%; top: 12%; margin: 0;
+      width: auto; max-width: none; animation: floatyB 6s ease-in-out infinite 0.3s;
+    }
+    .float-card--tag {
+      display: inline-flex; position: absolute; z-index: 4; right: 32px; bottom: 32px;
+      background: rgba(10,15,13,0.72); backdrop-filter: blur(6px); animation: floatyC 5.5s ease-in-out infinite 0.6s;
+    }
+  }
 
   /* MARQUEE */
   .marquee-wrap { background: var(--surface); padding: 18px 0; overflow: hidden; border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
@@ -265,14 +329,10 @@
       background: var(--surface); border: 1px solid var(--divider); border-radius: 12px; padding: 18px; z-index: 60;
     }
     .nav-mobile-panel .navlink { font-size: 15px; }
-    .hero { padding: 36px 20px 56px; }
-    .hero-photo { margin-top: 32px; }
-    .hero-photo-frame { max-width: 280px; }
+    .hero-photo-bleed { max-width: 240px; }
     main { padding: 0 20px; }
     .section { padding: 60px 0; }
     .contact-section { padding: 70px 20px; }
-    .term-body { padding: 22px 18px 24px; }
-    .term-h1 { font-size: 30px; }
     .services-grid { grid-template-columns: 1fr; }
     .work-grid { grid-template-columns: 1fr; }
     .work-preview { position: static; margin-top: 24px; }
@@ -305,32 +365,32 @@
 </nav>
 
 <main>
-<section class="hero" aria-label="Introduction">
+<section class="hero" aria-label="Introduction" id="hero">
   <div class="hero-glow"></div>
+  <div class="hero-glow hero-glow-b"></div>
+  <span class="hero-ghost" aria-hidden="true">SONI</span>
 
-  <div class="hero-content">
-    <p class="hero-eyebrow">Full-Stack &amp; Flutter Architect<span class="sep">·</span>10 Years<span class="sep">·</span>Noida, India</p>
+  <div class="hero-photo-bleed" id="hero-photo">
+    <img src="ravi-photo.jpg" alt="Portrait of Ravi Soni" loading="eager">
+  </div>
 
-    <div class="term-window">
-      <div class="term-titlebar">
-        <div class="term-dots">
-          <span class="term-dot" style="background: var(--danger-dot);"></span>
-          <span class="term-dot" style="background: var(--warn-dot);"></span>
-          <span class="term-dot" style="background: var(--ok-dot);"></span>
-        </div>
-        <div class="term-tabs">
-          <span class="term-tab active android">android.kt</span>
-          <span class="term-tab">flutter.dart</span>
-          <span class="term-tab">web.tsx</span>
-        </div>
-      </div>
-      <div class="term-body">
-        <div class="term-line-cmd"><span class="term-prompt">&gt;</span>whoami</div>
-        <h1 class="term-h1">I build <span class="accent-a">apps</span> &amp; <span class="accent-f">websites</span>.<br>Fast. Flawless.<span class="cursor" aria-hidden="true"></span></h1>
-        <p class="term-desc">10 years delivering mobile and web products end to end — Flutter, native Android, and full-stack web on React, Node and Postgres. One person, every layer, nothing outsourced.</p>
-        <div class="term-status"><span class="status-led"></span>status: available for freelance work</div>
-      </div>
-    </div>
+  <div class="hero-socials" aria-label="Quick contact">
+    <a href="mailto:itsjustravisoni@gmail.com" class="hero-social-btn" title="Email">✉</a>
+    <a href="tel:+918003222231" class="hero-social-btn" title="Call">☎</a>
+    <a href="#contact" class="hero-social-btn hero-social-btn--accent" title="Book a call">→</a>
+  </div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="pulse-dot"></span>Available for freelance work<span class="sep">·</span>Noida, India</p>
+
+    <h1 class="hero-title">
+      <span class="term-line"><span class="term-prompt">&gt;</span>whoami</span>
+      I build <span class="accent-a">apps</span> &amp;<br>
+      <span class="accent-f">websites</span>. Fast.<br>
+      Flawless.<span class="cursor" aria-hidden="true"></span>
+    </h1>
+
+    <p class="hero-desc">10 years delivering mobile and web products end to end — Flutter, native Android, and full-stack web on React, Node and Postgres. One person, every layer, nothing outsourced.</p>
 
     <div class="hero-ctas">
       <a href="#work" class="btn btn-primary">See the work</a>
@@ -338,12 +398,19 @@
     </div>
   </div>
 
-  <div class="hero-photo">
-    <div class="hero-photo-frame">
-      <img src="ravi-photo.jpg" alt="Portrait of Ravi Soni" loading="eager">
-      <span class="tag hero-photo-tag mono">ravi.jpg</span>
-    </div>
+  <div class="float-card float-card--status mono">
+    <span class="status-led"></span>status: available for freelance work
   </div>
+
+  <div class="float-card float-card--stats mono">
+    <div class="float-stat"><strong>10+</strong><span>yrs</span></div>
+    <div class="float-stat-sep"></div>
+    <div class="float-stat"><strong>50k+</strong><span>users</span></div>
+    <div class="float-stat-sep"></div>
+    <div class="float-stat"><strong>10+</strong><span>shipped</span></div>
+  </div>
+
+  <span class="tag float-card float-card--tag mono">ravi.jpg</span>
 </section>
 
 <div class="marquee-wrap" aria-hidden="true">
@@ -578,6 +645,28 @@
       burger.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // Hero parallax — subtle depth on mouse move (desktop, motion-safe only)
+  var hero = document.getElementById('hero');
+  var heroPhoto = document.getElementById('hero-photo');
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+  if (hero && heroPhoto && !prefersReducedMotion && isFinePointer && window.innerWidth >= 980) {
+    var raf = null;
+    hero.addEventListener('mousemove', function (e) {
+      var rect = hero.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width - 0.5;
+      var py = (e.clientY - rect.top) / rect.height - 0.5;
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        heroPhoto.style.transform = 'translate(' + (px * -10) + 'px,' + (py * -8) + 'px) scale(1.02)';
+        raf = null;
+      });
+    });
+    hero.addEventListener('mouseleave', function () {
+      heroPhoto.style.transform = '';
+    });
+  }
 })();
 </script>
 
