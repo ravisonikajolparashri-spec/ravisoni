@@ -112,6 +112,10 @@
     position: relative; padding: 64px 48px 80px; max-width: 1280px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr; gap: 20px; overflow: hidden;
   }
+  @media (min-width: 980px) {
+    .hero { grid-template-columns: 1.15fr 0.85fr; align-items: center; gap: 48px; }
+    .hero-photo { justify-content: flex-end; }
+  }
   .hero-glow {
     position:absolute; width:560px; height:560px; border-radius:50%;
     background: radial-gradient(circle, rgba(61,220,132,0.10), transparent 70%);
@@ -119,6 +123,16 @@
   }
   .hero-eyebrow { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); margin-bottom: 18px; position: relative; z-index: 1; }
   .hero-eyebrow .sep { color: var(--divider); margin: 0 8px; }
+  .hero-content { position: relative; z-index: 1; min-width: 0; }
+
+  .hero-photo { position: relative; z-index: 1; display: flex; justify-content: center; }
+  .hero-photo-frame {
+    position: relative; width: 100%; max-width: 340px; border-radius: var(--radius);
+    overflow: hidden; border: 1px solid var(--divider); background: var(--surface);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45); animation: fadeInUp 0.7s cubic-bezier(.16,1,.3,1) both;
+  }
+  .hero-photo-frame img { display: block; width: 100%; height: 100%; aspect-ratio: 4/5; object-fit: cover; }
+  .hero-photo-tag { position: absolute; bottom: 12px; left: 12px; background: rgba(10,15,13,0.72); backdrop-filter: blur(6px); }
 
   .term-window {
     position: relative; z-index: 1; background: var(--surface); border: 1px solid var(--divider);
@@ -252,6 +266,8 @@
     }
     .nav-mobile-panel .navlink { font-size: 15px; }
     .hero { padding: 36px 20px 56px; }
+    .hero-photo { margin-top: 32px; }
+    .hero-photo-frame { max-width: 280px; }
     main { padding: 0 20px; }
     .section { padding: 60px 0; }
     .contact-section { padding: 70px 20px; }
@@ -291,32 +307,42 @@
 <main>
 <section class="hero" aria-label="Introduction">
   <div class="hero-glow"></div>
-  <p class="hero-eyebrow">Full-Stack &amp; Flutter Architect<span class="sep">·</span>10 Years<span class="sep">·</span>Noida, India</p>
 
-  <div class="term-window">
-    <div class="term-titlebar">
-      <div class="term-dots">
-        <span class="term-dot" style="background: var(--danger-dot);"></span>
-        <span class="term-dot" style="background: var(--warn-dot);"></span>
-        <span class="term-dot" style="background: var(--ok-dot);"></span>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Full-Stack &amp; Flutter Architect<span class="sep">·</span>10 Years<span class="sep">·</span>Noida, India</p>
+
+    <div class="term-window">
+      <div class="term-titlebar">
+        <div class="term-dots">
+          <span class="term-dot" style="background: var(--danger-dot);"></span>
+          <span class="term-dot" style="background: var(--warn-dot);"></span>
+          <span class="term-dot" style="background: var(--ok-dot);"></span>
+        </div>
+        <div class="term-tabs">
+          <span class="term-tab active android">android.kt</span>
+          <span class="term-tab">flutter.dart</span>
+          <span class="term-tab">web.tsx</span>
+        </div>
       </div>
-      <div class="term-tabs">
-        <span class="term-tab active android">android.kt</span>
-        <span class="term-tab">flutter.dart</span>
-        <span class="term-tab">web.tsx</span>
+      <div class="term-body">
+        <div class="term-line-cmd"><span class="term-prompt">&gt;</span>whoami</div>
+        <h1 class="term-h1">I build <span class="accent-a">apps</span> &amp; <span class="accent-f">websites</span>.<br>Fast. Flawless.<span class="cursor" aria-hidden="true"></span></h1>
+        <p class="term-desc">10 years delivering mobile and web products end to end — Flutter, native Android, and full-stack web on React, Node and Postgres. One person, every layer, nothing outsourced.</p>
+        <div class="term-status"><span class="status-led"></span>status: available for freelance work</div>
       </div>
     </div>
-    <div class="term-body">
-      <div class="term-line-cmd"><span class="term-prompt">&gt;</span>whoami</div>
-      <h1 class="term-h1">I build <span class="accent-a">apps</span> &amp; <span class="accent-f">websites</span>.<br>Fast. Flawless.<span class="cursor" aria-hidden="true"></span></h1>
-      <p class="term-desc">10 years delivering mobile and web products end to end — Flutter, native Android, and full-stack web on React, Node and Postgres. One person, every layer, nothing outsourced.</p>
-      <div class="term-status"><span class="status-led"></span>status: available for freelance work</div>
+
+    <div class="hero-ctas">
+      <a href="#work" class="btn btn-primary">See the work</a>
+      <a href="#contact" class="btn btn-secondary">Book a call</a>
     </div>
   </div>
 
-  <div class="hero-ctas">
-    <a href="#work" class="btn btn-primary">See the work</a>
-    <a href="#contact" class="btn btn-secondary">Book a call</a>
+  <div class="hero-photo">
+    <div class="hero-photo-frame">
+      <img src="ravi-photo.jpg" alt="Portrait of Ravi Soni" loading="eager">
+      <span class="tag hero-photo-tag mono">ravi.jpg</span>
+    </div>
   </div>
 </section>
 
