@@ -113,6 +113,11 @@
   @keyframes floatyA { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-9px) rotate(-2deg); } }
   @keyframes floatyB { 0%,100% { transform: translateY(0) rotate(2deg); } 50% { transform: translateY(-11px) rotate(2deg); } }
   @keyframes floatyC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.3); } }
+  .hero-particles span {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--android);
+    box-shadow: 0 0 8px 2px rgba(61,220,132,0.7); animation: twinkle 3s ease-in-out infinite;
+  }
 
   .hero {
     position: relative; overflow: hidden;
@@ -130,6 +135,7 @@
   }
   .hero-ghost { display: none; }
   .hero-circuit { display: none; }
+  .hero-particles { display: none; }
 
   .hero-photo-bleed {
     position: relative; order: 2; width: 100%; max-width: 300px; margin: 8px auto 0; aspect-ratio: 4/5;
@@ -144,57 +150,56 @@
 
   .hero-inner { position: relative; z-index: 3; order: 1; }
   .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 12.5px;
-    color: var(--text-dim); margin: 0 0 22px; border-radius: 30px; padding: 9px 16px;
-    background: rgba(16,23,19,0.4); backdrop-filter: blur(6px); box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12.5px;
+    color: var(--text-dim); margin: 0 0 20px; border-radius: 30px; padding: 9px 16px;
+    background: rgba(16,23,19,0.45); border: 1px solid rgba(238,242,239,0.14);
   }
-  .hero-eyebrow .sep { color: rgba(154,167,159,0.35); margin: 0 2px; }
+  .hero-eyebrow .sep { color: rgba(238,242,239,0.2); margin: 0 2px; }
   .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--android); flex-shrink: 0; animation: pulse 2s ease-out infinite; }
 
   .hero-title {
-    font-family: var(--font-mono); font-weight: 700; font-size: clamp(32px, 8.6vw, 42px);
-    line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 20px;
+    font-family: var(--font-mono); font-weight: 700; font-size: clamp(30px, 8.2vw, 38px);
+    line-height: 1.14; letter-spacing: -0.01em; margin: 0 0 16px;
   }
   .hero-title .accent-a { color: var(--android); }
   .hero-title .accent-f { color: var(--flutter); }
   .cursor { display: inline-block; width: 9px; height: 0.85em; background: var(--android); vertical-align: text-bottom; margin-left: 2px; animation: blink 1s steps(1) infinite; }
 
-  .hero-desc { font-family: var(--font-body); font-size: 16px; color: var(--text-dim); max-width: 560px; margin: 0 0 26px; line-height: 1.65; }
+  .hero-desc { font-family: var(--font-body); font-size: 15px; color: var(--text-dim); max-width: 560px; margin: 0 0 22px; line-height: 1.6; }
   .hero-desc .hl-strong { color: var(--android); font-weight: 700; }
-  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
   .btn-icon { display: inline-flex; width: 16px; height: 16px; flex-shrink: 0; }
   .btn-icon svg { width: 100%; height: 100%; }
+  .btn-primary { background: linear-gradient(135deg, var(--android), #2fc774); box-shadow: 0 8px 24px rgba(61,220,132,0.25); }
+  .btn-primary:hover { background: linear-gradient(135deg, #4ee592, var(--android)); box-shadow: 0 10px 30px rgba(61,220,132,0.4); }
 
   .hero-features {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 10px;
-    border-radius: var(--radius); padding: 18px 20px;
-    background: radial-gradient(circle at 15% 20%, rgba(61,220,132,0.06), transparent 70%);
-    max-width: 560px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; max-width: 620px;
   }
-  .hero-feature { display: flex; align-items: center; gap: 10px; }
+  .hero-feature { display: flex; align-items: center; gap: 9px; }
   .hero-feature-icon {
-    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     background: rgba(61,220,132,0.10); color: var(--android);
   }
-  .hero-feature-icon svg { width: 16px; height: 16px; }
-  .hero-feature-text { font-size: 12.5px; color: var(--text); line-height: 1.35; }
-  .hero-feature-text span { display: block; color: var(--text-dim); font-size: 11.5px; }
+  .hero-feature-icon svg { width: 14px; height: 14px; }
+  .hero-feature-text { font-size: 12px; color: var(--text); line-height: 1.3; white-space: nowrap; }
+  .hero-feature-text span { display: block; color: var(--text-dim); font-size: 10.5px; }
 
   .float-card {
-    background: rgba(16,23,19,0.55); backdrop-filter: blur(14px);
+    background: rgba(16,23,19,0.6); backdrop-filter: blur(14px); border: 1px solid rgba(238,242,239,0.12);
     border-radius: 10px; box-shadow: 0 16px 40px rgba(0,0,0,0.3); z-index: 4;
   }
   .float-card--status { display: none; }
   .status-led { width: 8px; height: 8px; border-radius: 50%; background: var(--android); box-shadow: 0 0 8px var(--android); flex-shrink: 0; }
 
   .float-card--stats {
-    order: 4; margin: 14px auto 0; padding: 15px 20px; width: 100%; max-width: 320px;
-    display: flex; align-items: center; justify-content: center; gap: 14px;
+    order: 4; margin: 14px auto 0; padding: 14px 18px; width: 100%; max-width: 320px;
+    display: flex; align-items: center; justify-content: center; gap: 0;
   }
-  .float-stat { display: flex; flex-direction: column; align-items: center; font-family: var(--font-mono); max-width: 78px; text-align: center; }
+  .float-stat { display: flex; flex-direction: column; align-items: center; font-family: var(--font-mono); max-width: 78px; text-align: center; padding: 0 12px; }
   .float-stat strong { font-size: 17px; color: var(--text); }
   .float-stat span { font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 2px; line-height: 1.3; }
-  .float-stat-sep { width: 1px; height: 26px; background: linear-gradient(180deg, transparent, rgba(238,242,239,0.14), transparent); }
+  .float-stat-sep { color: rgba(238,242,239,0.18); font-size: 15px; font-weight: 300; }
 
   .float-card--tag { display: none; }
 
@@ -205,6 +210,15 @@
     .hero-circuit {
       display: block; position: absolute; z-index: 0; left: 0; bottom: 0; width: 58%; height: 42%;
       opacity: 0.5; pointer-events: none; transform: scaleX(-1);
+    }
+    .hero-ghost {
+      display: block; position: absolute; z-index: 0; top: 6%; left: 4%;
+      font-family: var(--font-mono); font-weight: 800; font-size: clamp(90px, 10vw, 160px);
+      color: transparent; -webkit-text-stroke: 1px rgba(238,242,239,0.09); letter-spacing: -0.02em;
+      white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .hero-particles {
+      display: block; position: absolute; z-index: 2; inset: 0; pointer-events: none;
     }
     .hero-photo-bleed {
       position: absolute; top: 0; right: 0; height: 100%; width: 44%; max-width: none; margin: 0;
@@ -449,7 +463,14 @@
 <section class="hero" aria-label="Introduction" id="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow hero-glow-b"></div>
-  <span class="hero-ghost" aria-hidden="true">SONI</span>
+  <span class="hero-ghost" aria-hidden="true">DEV</span>
+  <div class="hero-particles" aria-hidden="true">
+    <span style="top:12%; left:78%; animation-delay:0s;"></span>
+    <span style="top:28%; left:92%; animation-delay:0.6s;"></span>
+    <span style="top:52%; left:97%; animation-delay:1.2s;"></span>
+    <span style="top:74%; left:85%; animation-delay:0.3s;"></span>
+    <span style="top:88%; left:95%; animation-delay:0.9s;"></span>
+  </div>
 
   <svg class="hero-circuit" viewBox="0 0 500 500" fill="none" aria-hidden="true">
     <defs>
@@ -494,7 +515,7 @@
   </div>
 
   <div class="hero-inner">
-    <p class="hero-eyebrow"><span class="pulse-dot"></span>Available for freelance work<span class="sep">·</span>Noida, India</p>
+    <p class="hero-eyebrow"><span class="pulse-dot"></span>Available for freelance work<span class="sep">|</span>Noida, India</p>
 
     <h1 class="hero-title">
       I build <span class="accent-a">apps</span> &amp;<br>
@@ -537,9 +558,9 @@
 
   <div class="float-card float-card--stats mono">
     <div class="float-stat"><strong>10+</strong><span>YRS EXP</span></div>
-    <div class="float-stat-sep"></div>
+    <div class="float-stat-sep">|</div>
     <div class="float-stat"><strong>50K+</strong><span>USERS</span></div>
-    <div class="float-stat-sep"></div>
+    <div class="float-stat-sep">|</div>
     <div class="float-stat"><strong>10+</strong><span>PROJECTS DELIVERED</span></div>
   </div>
 </section>
