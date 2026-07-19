@@ -136,6 +136,7 @@
   .hero-ghost { display: none; }
   .hero-circuit { display: none; }
   .hero-particles { display: none; }
+  .hero-chevron { display: none; }
 
   .hero-photo-bleed {
     position: relative; order: 2; width: 100%; max-width: 300px; margin: 8px auto 0; aspect-ratio: 4/5;
@@ -150,40 +151,41 @@
 
   .hero-inner { position: relative; z-index: 3; order: 1; }
   .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12.5px;
-    color: var(--text-dim); margin: 0 0 20px; border-radius: 30px; padding: 9px 16px;
+    display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 13px;
+    color: var(--text-dim); margin: 0 0 24px; border-radius: 30px; padding: 10px 18px;
     background: rgba(16,23,19,0.45); border: 1px solid rgba(238,242,239,0.14);
   }
   .hero-eyebrow .sep { color: rgba(238,242,239,0.2); margin: 0 2px; }
   .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--android); flex-shrink: 0; animation: pulse 2s ease-out infinite; }
 
   .hero-title {
-    font-family: var(--font-mono); font-weight: 700; font-size: clamp(30px, 8.2vw, 38px);
-    line-height: 1.14; letter-spacing: -0.01em; margin: 0 0 16px;
+    font-family: var(--font-mono); font-weight: 700; font-size: clamp(32px, 9vw, 42px);
+    line-height: 1.14; letter-spacing: -0.01em; margin: 0 0 20px;
   }
   .hero-title .accent-a { color: var(--android); }
   .hero-title .accent-f { color: var(--flutter); }
   .cursor { display: inline-block; width: 9px; height: 0.85em; background: var(--android); vertical-align: text-bottom; margin-left: 2px; animation: blink 1s steps(1) infinite; }
 
-  .hero-desc { font-family: var(--font-body); font-size: 15px; color: var(--text-dim); max-width: 560px; margin: 0 0 22px; line-height: 1.6; }
+  .hero-desc { font-family: var(--font-body); font-size: 16px; color: var(--text-dim); max-width: 500px; margin: 0 0 26px; line-height: 1.65; }
   .hero-desc .hl-strong { color: var(--android); font-weight: 700; }
-  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
-  .btn-icon { display: inline-flex; width: 16px; height: 16px; flex-shrink: 0; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+  .btn-icon { display: inline-flex; width: 17px; height: 17px; flex-shrink: 0; }
   .btn-icon svg { width: 100%; height: 100%; }
   .btn-primary { background: linear-gradient(135deg, var(--android), #2fc774); box-shadow: 0 8px 24px rgba(61,220,132,0.25); }
   .btn-primary:hover { background: linear-gradient(135deg, #4ee592, var(--android)); box-shadow: 0 10px 30px rgba(61,220,132,0.4); }
+  .hero-ctas .btn { padding: 15px 26px; font-size: 15.5px; }
 
   .hero-features {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; max-width: 620px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 18px 22px; max-width: 640px;
   }
   .hero-feature { display: flex; align-items: center; gap: 9px; }
   .hero-feature-icon {
-    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     background: rgba(61,220,132,0.10); color: var(--android);
   }
-  .hero-feature-icon svg { width: 14px; height: 14px; }
-  .hero-feature-text { font-size: 12px; color: var(--text); line-height: 1.3; white-space: nowrap; }
-  .hero-feature-text span { display: block; color: var(--text-dim); font-size: 10.5px; }
+  .hero-feature-icon svg { width: 16px; height: 16px; }
+  .hero-feature-text { font-size: 13px; color: var(--text); line-height: 1.3; white-space: nowrap; font-weight: 500; }
+  .hero-feature-text span { display: block; color: var(--text-dim); font-size: 11px; font-weight: 400; }
 
   .float-card {
     background: rgba(16,23,19,0.6); backdrop-filter: blur(14px); border: 1px solid rgba(238,242,239,0.12);
@@ -193,13 +195,13 @@
   .status-led { width: 8px; height: 8px; border-radius: 50%; background: var(--android); box-shadow: 0 0 8px var(--android); flex-shrink: 0; }
 
   .float-card--stats {
-    order: 4; margin: 14px auto 0; padding: 14px 18px; width: 100%; max-width: 320px;
+    order: 4; margin: 14px auto 0; padding: 16px 20px; width: 100%; max-width: 340px;
     display: flex; align-items: center; justify-content: center; gap: 0;
   }
-  .float-stat { display: flex; flex-direction: column; align-items: center; font-family: var(--font-mono); max-width: 78px; text-align: center; padding: 0 12px; }
-  .float-stat strong { font-size: 17px; color: var(--text); }
-  .float-stat span { font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 2px; line-height: 1.3; }
-  .float-stat-sep { color: rgba(238,242,239,0.18); font-size: 15px; font-weight: 300; }
+  .float-stat { display: flex; flex-direction: column; align-items: center; font-family: var(--font-mono); max-width: 82px; text-align: center; padding: 0 14px; }
+  .float-stat strong { font-size: 19px; color: var(--text); }
+  .float-stat span { font-size: 9.5px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 3px; line-height: 1.3; }
+  .float-stat-sep { color: rgba(238,242,239,0.18); font-size: 16px; font-weight: 300; }
 
   .float-card--tag { display: none; }
 
@@ -209,12 +211,13 @@
     }
     .hero-circuit {
       display: block; position: absolute; z-index: 0; left: 0; bottom: 0; width: 58%; height: 42%;
-      opacity: 0.5; pointer-events: none; transform: scaleX(-1);
+      opacity: 0.55; pointer-events: none; transform: scaleX(-1);
     }
+    .hero-chevron { display: block; position: absolute; z-index: 3; right: 0; bottom: 0; width: 16%; height: 32%; opacity: 0.6; pointer-events: none; }
     .hero-ghost {
-      display: block; position: absolute; z-index: 0; top: 6%; left: 4%;
-      font-family: var(--font-mono); font-weight: 800; font-size: clamp(90px, 10vw, 160px);
-      color: transparent; -webkit-text-stroke: 1px rgba(238,242,239,0.09); letter-spacing: -0.02em;
+      display: block; position: absolute; z-index: 0; top: 2%; left: 18%;
+      font-family: var(--font-mono); font-weight: 800; font-size: clamp(120px, 13vw, 210px);
+      color: transparent; -webkit-text-stroke: 1px rgba(238,242,239,0.1); letter-spacing: -0.02em;
       white-space: nowrap; pointer-events: none; user-select: none;
     }
     .hero-particles {
@@ -246,8 +249,8 @@
     .hero-signature .sig-name { font-family: var(--font-script); font-size: 46px; color: var(--android); line-height: 1; text-shadow: 0 0 20px rgba(61,220,132,0.4); }
     .hero-signature .sig-caption { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); margin-top: 2px; }
 
-    .hero-inner { max-width: 620px; padding: 118px 48px 90px; }
-    .hero-title { font-size: clamp(38px, 4.4vw, 56px); }
+    .hero-inner { max-width: 640px; padding: 100px 48px 70px; }
+    .hero-title { font-size: clamp(38px, 4.2vw, 54px); margin-bottom: 22px; }
 
     .float-card--stats {
       order: 0; position: absolute; z-index: 4; right: 32px; top: 40px; margin: 0;
@@ -470,6 +473,8 @@
     <span style="top:52%; left:97%; animation-delay:1.2s;"></span>
     <span style="top:74%; left:85%; animation-delay:0.3s;"></span>
     <span style="top:88%; left:95%; animation-delay:0.9s;"></span>
+    <span style="top:44%; left:99%; animation-delay:1.6s;"></span>
+    <span style="top:65%; left:90%; animation-delay:2.1s;"></span>
   </div>
 
   <svg class="hero-circuit" viewBox="0 0 500 500" fill="none" aria-hidden="true">
@@ -485,6 +490,17 @@
     <circle cx="360" cy="220" r="4" fill="var(--android)"></circle>
     <circle cx="300" cy="400" r="4" fill="var(--android)"></circle>
     <circle cx="420" cy="380" r="3" fill="var(--flutter)"></circle>
+  </svg>
+
+  <svg class="hero-chevron" viewBox="0 0 300 500" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="chevGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#3ddc84" stop-opacity="0.5"></stop>
+        <stop offset="100%" stop-color="#3ddc84" stop-opacity="0.05"></stop>
+      </linearGradient>
+    </defs>
+    <path d="M300 60 L170 250 L300 440" stroke="url(#chevGrad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M260 130 L170 250 L260 370" stroke="rgba(61,220,132,0.22)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
   </svg>
 
   <div class="hero-photo-bleed" id="hero-photo">
